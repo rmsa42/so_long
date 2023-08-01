@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:31:47 by rumachad          #+#    #+#             */
-/*   Updated: 2023/07/31 16:59:28 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:42:10 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,45 +41,45 @@ t_map	read_map(char *map_name)
 	return (map);
 }
 
-void	*put_sprite(t_mlx *vars, char *img_name, int k, int i)
+void	*put_sprite(t_mlx *vars, char *img_name, int x, int y)
 {
 	t_sprite	sprite;
 	
 	sprite.image = mlx_xpm_file_to_image(vars->mlx_ptr, img_name, &sprite.x, &sprite.y);
-	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, sprite.image, k * 42, i * 42);
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, sprite.image, x * 42, y * 42);
 	return (sprite.image);
 }
 
-void	put_map(t_mlx *vars, t_map map, t_player *player, char *map_name)
+void	put_map(t_mlx *vars, t_map map, char *map_name)
 {
-	int	i;
-	int	k;
+	int	y;
+	int	x;
 	int	fd;
 	char	*line;
 	
 	fd = open(map_name, O_RDONLY);
-	i = 0;
-	while (i < map.y)
+	y = 0;
+	while (y < map.y)
 	{
-		k = 0;
+		x = 0;
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		while (k < map.x)
+		while (x < map.x)
 		{
-			if (line[k] == '1')
-				put_sprite(vars, "sprites/wall.xpm", k, i);
-			if (line[k] == '0')
-				put_sprite(vars, "sprites/path.xpm", k, i);
-			if (line[k] == 'P')
+			if (line[x] == '1')
+				vars->sprites[0].image = put_sprite(vars, "sprites/wall.xpm", x, y);
+			if (line[x] == '0')
+				vars->sprites[1].image = put_sprite(vars, "sprites/path.xpm", x, y);
+			if (line[x] == 'P')
 			{
-				player->player_image = put_sprite(vars, "sprites/player.xpm", k, i);
-				player->x = (i * map.x) + k;
-				player->y = i;
+				vars->sprites[2].image = put_sprite(vars, "sprites/player.xpm", x, y);
+				vars->sprites[2].x = x;
+				vars->sprites[2].y = y;
 			}
-			k++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	close(fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:02:23 by rumachad          #+#    #+#             */
-/*   Updated: 2023/07/31 17:00:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:41:27 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_mlx
 {
 	void *mlx_ptr;
 	void *win_ptr;
-	t_sprite	im;
+	t_sprite	sprites[3];
 }				t_mlx;
 
 typedef struct s_map
@@ -37,14 +37,9 @@ typedef struct s_map
 	int	y;
 }				t_map;
 
-typedef struct s_player
-{
-	int		x;
-	int		y;
-	void	*player_image;
-}						t_player;
 
 t_map	read_map(char *map_name);
-void	put_map(t_mlx *vars, t_map map, t_player *player, char *map_name);
+void	put_map(t_mlx *vars, t_map map, char *map_name);
+void	*put_sprite(t_mlx *vars, char *img_name, int x, int y);
 
 #endif
