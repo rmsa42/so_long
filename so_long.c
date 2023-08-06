@@ -6,7 +6,7 @@
 /*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:23:12 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/01 20:31:35 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/06 15:34:16 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	player_move(int key, t_mlx *vars)
 
 int key_press(int key, t_mlx *vars)
 {
+	static int	coin;
+
 	if (key == 65307)
 	{
 		mlx_clear_window(vars->mlx_ptr, vars->win_ptr);
@@ -73,6 +75,10 @@ int key_press(int key, t_mlx *vars)
 	}
 	else if (key == 115 || key == 97 || key == 100 || key == 119)
 		player_move(key, vars);
+	if ((vars->sprites[2].x == vars->sprites[3].x)
+			&& (vars->sprites[2].y == vars->sprites[3].y) && coin != 1)
+			coin++;
+	printf("%d\n", coin);
 	printf("%d\n", key);
 	return (0);
 }
@@ -83,7 +89,7 @@ int main(int argc, char *argv[])
 {
 	t_mlx	vars;
 	t_map	map_info;
-	
+
 	if (argc == 2)
 	{
 		vars.mlx_ptr = mlx_init();

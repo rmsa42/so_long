@@ -6,7 +6,7 @@
 /*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:02:23 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/01 19:41:27 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/06 15:05:32 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_mlx
 {
 	void *mlx_ptr;
 	void *win_ptr;
-	t_sprite	sprites[3];
+	t_sprite	sprites[5];
 }				t_mlx;
 
 typedef struct s_map

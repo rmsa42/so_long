@@ -6,7 +6,7 @@
 /*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:31:47 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/01 19:42:10 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/06 15:28:40 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,25 @@ void	put_map(t_mlx *vars, t_map map, char *map_name)
 		{
 			if (line[x] == '1')
 				vars->sprites[0].image = put_sprite(vars, "sprites/wall.xpm", x, y);
-			if (line[x] == '0')
+			else if (line[x] == '0')
 				vars->sprites[1].image = put_sprite(vars, "sprites/path.xpm", x, y);
-			if (line[x] == 'P')
+			else if (line[x] == 'P')
 			{
 				vars->sprites[2].image = put_sprite(vars, "sprites/player.xpm", x, y);
 				vars->sprites[2].x = x;
 				vars->sprites[2].y = y;
+			}
+			else if (line[x] == 'C')
+			{
+				vars->sprites[3].image = put_sprite(vars, "sprites/coin.xpm", x, y);
+				vars->sprites[3].x = x;
+				vars->sprites[3].y = y;
+			}
+			else if (line[x] == 'E')
+			{
+				vars->sprites[4].image = put_sprite(vars, "sprites/exit.xpm", x, y);
+				vars->sprites[4].x = x;
+				vars->sprites[4].y = y;
 			}
 			x++;
 		}
