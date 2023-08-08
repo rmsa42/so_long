@@ -3,101 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:23:12 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/06 15:34:16 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/08 17:32:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	player_move(int key, t_mlx *vars)
+void	player_move_x(t_mlx *vars, int curr_y, int curr_x, int next_x)
 {
-	if (key == 115)
-	{
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[1].image,
-			vars->sprites[2].x * 42, vars->sprites[2].y * 42);
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[2].image,
-			vars->sprites[2].x * 42, (vars->sprites[2].y + 1) * 42);
-		vars->sprites[2].y = vars->sprites[2].y + 1;
-	}
-	else if (key == 97)
-	{
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[1].image,
-			vars->sprites[2].x * 42, vars->sprites[2].y * 42);
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[2].image,
-			(vars->sprites[2].x - 1) * 42, vars->sprites[2].y * 42);
-		vars->sprites[2].x = vars->sprites[2].x - 1;
-	}
-	else if (key == 100)
-	{
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[1].image,
-			vars->sprites[2].x * 42, vars->sprites[2].y * 42);
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[2].image,
-			(vars->sprites[2].x + 1) * 42, vars->sprites[2].y * 42);
-		vars->sprites[2].x = vars->sprites[2].x + 1;
-	}
-	else if (key == 119)
-	{
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[1].image,
-			vars->sprites[2].x * 42, vars->sprites[2].y * 42);
-		mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[2].image,
-			vars->sprites[2].x * 42, (vars->sprites[2].y - 1) * 42);
-		vars->sprites[2].y = vars->sprites[2].y - 1;
-	}
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[1].image,
+		curr_x * 42, curr_y * 42);
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[2].image,
+		next_x * 42, curr_y * 42);
+	vars->sprites[2].x = next_x;
 }
 
-/* void	free_image(t_mlx *vars)
+void	player_move_y(t_mlx *vars, int curr_y, int curr_x, int next_y)
 {
-	int	i;
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[1].image,
+		curr_x * 42, curr_y * 42);
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[2].image,
+		curr_x * 42, next_y * 42);
+	vars->sprites[2].y = next_y;
+}
 
-	i = 0;
-	while (i < 3)
-	{
-		free(vars->sprites[i].image);
-		i++;
-	}
-} */
+void	check_key(int key, t_mlx *vars, int *moves)
+{
+	int y;
+	int x;
+
+	x = vars->sprites[2].x;
+	y = vars->sprites[2].y;	
+	if (key == S && check_wall_y(vars, x, y + 1) == 0)
+		player_move_y(vars, y, x, y + 1);
+	else if (key == A && check_wall_x(vars, y, x - 1) == 0)
+		player_move_x(vars, y, x, x - 1);
+	else if (key == D && check_wall_x(vars, y, x + 1) == 0)
+		player_move_x(vars, y, x, x + 1);
+	else if (key == W && check_wall_y(vars, x, y - 1) == 0)
+		player_move_y(vars, y, x, y - 1);
+	
+}
 
 int key_press(int key, t_mlx *vars)
 {
 	static int	coin;
+	static int	moves;
 
-	if (key == 65307)
+	if (key == Esc)
+		close_game(vars);
+	else if (key == S || key == A || key == D || key == W)
 	{
-		mlx_clear_window(vars->mlx_ptr, vars->win_ptr);
-		mlx_destroy_window(vars->mlx_ptr, vars->win_ptr);
-		mlx_destroy_display(vars->mlx_ptr);
-		/* free_image(vars); */
-		free(vars->mlx_ptr);
-		exit(0);
+		check_key(key, vars, &moves);
 	}
-	else if (key == 115 || key == 97 || key == 100 || key == 119)
-		player_move(key, vars);
-	if ((vars->sprites[2].x == vars->sprites[3].x)
-			&& (vars->sprites[2].y == vars->sprites[3].y) && coin != 1)
-			coin++;
-	printf("%d\n", coin);
-	printf("%d\n", key);
+	if (vars->map.map_lines[vars->sprites[2].y][vars->sprites[2].x] == 'E' && coin == 1)
+		close_game(vars);
+	if (vars->map.map_lines[vars->sprites[2].y][vars->sprites[2].x] == 'C'
+		&& coin != 1)
+		coin++;
+	printf("Coin:%d\n", coin);
 	return (0);
 }
-
-
 
 int main(int argc, char *argv[])
 {
 	t_mlx	vars;
-	t_map	map_info;
 
 	if (argc == 2)
 	{
 		vars.mlx_ptr = mlx_init();
-		map_info = read_map(argv[1]);
-		printf("%d %d\n", map_info.x, map_info.y);
-		vars.win_ptr = mlx_new_window(vars.mlx_ptr, map_info.x * 42, map_info.y * 42, "so_long");
+		vars.map = read_map(argv[1]);
+		init_sprites(&vars);
 
-		put_map(&vars, map_info, argv[1]);
+		vars.map.map_lines = split_map(vars.map, argv[1]);
+
+		vars.win_ptr = mlx_new_window(vars.mlx_ptr, vars.map.x * 42, vars.map.y * 42, "so_long");
+		put_map(&vars); 
 		mlx_hook(vars.win_ptr, 2, KeyPressMask, key_press, &vars);
 		mlx_loop(vars.mlx_ptr);
 	}
