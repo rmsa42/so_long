@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: rui <rui@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 09:53:34 by rumachad          #+#    #+#              #
-#    Updated: 2023/08/08 16:40:03 by rumachad         ###   ########.fr        #
+#    Updated: 2023/08/09 15:36:23 by rui              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-SRC = so_long.c rendering.c free.c checks.c
+SRC = so_long.c rendering.c free.c checks.c player_movement.c test.c
 LIBFT_DIR = libft
 LIBFT_PATH = ${LIBFT_DIR}/libft.a
 MLX_DIR = minilibx-linux

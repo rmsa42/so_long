@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:02:23 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/08 17:16:18 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:45:47 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 typedef struct s_sprite
 {
-	int x;
-	int y;
+	int curr_x;
+	int curr_y;
+	int	coin_count;
 	void *image;
 }				t_sprite;
 
@@ -37,21 +38,26 @@ typedef enum
 	S = 115,
 	A = 97,
 	D = 100,
-	Esc = 65307
+	Esc = 65307,
+	P = 2,
+	C = 3,
+	E = 4
 }		t_id;
 
 typedef struct s_mlx
 {
-	void *mlx_ptr;
-	void *win_ptr;
+	void 		*mlx_ptr;
+	void 		*win_ptr;
 	t_sprite	sprites[5];
 	t_map		map;
 }				t_mlx;
 
+void    change_map(t_mlx *vars, char *map_name);
 t_map	read_map(char *map_name);
 char	**split_map(t_map map, char *map_name);
 void	init_sprites(t_mlx *vars);
 void	put_map(t_mlx *vars);
+int		key_press(int key, t_mlx *vars);
 int		check_wall_x(t_mlx *vars, int curr_y, int next_x);
 int 	check_wall_y(t_mlx *vars, int curr_x, int next_y);
 void	close_game(t_mlx *vars);
