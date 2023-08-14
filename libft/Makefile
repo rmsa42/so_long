@@ -6,11 +6,11 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/18 15:31:41 by rumachad          #+#    #+#              #
-#    Updated: 2023/06/07 15:50:58 by rumachad         ###   ########.fr        #
+#    Updated: 2023/08/14 16:05:54 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = libft
 SRC = ft_isalnum.c ft_isalpha.c ft_isdigit.c \
 		ft_isprint.c ft_isascii.c ft_strlen.c \
 		ft_memset.c ft_bzero.c ft_strlcpy.c \
@@ -38,7 +38,7 @@ CFLAGS = -Wall -Werror -Wextra
 		${CC} ${CFLAGS} ${INCLUDE} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-			ar rcs ${NAME} ${OBJS} ${HEADER}
+			ar rcs libft.a ${OBJS} ${HEADER}
 
 all:	${NAME}
 

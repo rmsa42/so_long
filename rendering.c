@@ -3,41 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:31:47 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/09 15:25:54 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/14 16:38:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_map	read_map(char *map_name)
+int	ft_strlen_sl(char *str)
 {
-	t_map	map;
-	int		i;
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	read_map(t_mlx *vars, char *map_name)
+{
 	int		fd;
+	int		check_x;
 	char	*line;
 
-	map.x = 0;
-	map.y = 0;
-	i = 0;
+	vars->map.x = 0;
+	vars->map.y = 0;
 	fd = open(map_name, O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		while (line[i] != '\n' && map.y == 0)
+		vars->map.x = ft_strlen_sl(line) - 1;
+		if (vars->map.y == 0)
+			check_x = vars->map.x;
+		if (check_x != vars->map.x)
 		{
-			map.x = map.x + 1;
-			i++;
+			mlx_destroy_display(vars->mlx_ptr);
+			free(vars->mlx_ptr);
+			exit(1);
 		}
-		map.y = map.y + 1;
+		vars->map.y++;
 		free(line);
 	}
 	close(fd);
-	return (map);
 }
 
 char	**split_map(t_map map, char *map_name)
@@ -81,10 +92,10 @@ void	put_map(t_mlx *vars)
 	int	x;
 	
 	y = 0;
-	while (y < vars->map.y)
+	while (vars->map.map_lines[y])
 	{
 		x = 0;
-		while (x < vars->map.x)
+		while (vars->map.map_lines[y][x])
 		{
 			if (vars->map.map_lines[y][x] == '0')
 				mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr,

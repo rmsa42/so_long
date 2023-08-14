@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:27:08 by rui               #+#    #+#             */
-/*   Updated: 2023/08/09 16:01:55 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/14 15:58:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	player_move(t_mlx *vars, int next_x, int next_y, int coin)
 {
-	if (vars->map.map_lines[next_y][next_x] == '1')
-		return (False);
-	else if (vars->map.map_lines[next_y][next_x] == 'E'
-        && coin != vars->sprites[C].coin_count)
+	if (vars->map.map_lines[next_y][next_x] == '1'
+		|| (vars->map.map_lines[next_y][next_x] == 'E'
+		&& coin != vars->sprites[C].coin_count))
 		return (False);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->sprites[0].image,
 		vars->sprites[P].curr_x * 42, vars->sprites[P].curr_y * 42);
@@ -53,7 +52,6 @@ void	check_key(int key, t_mlx *vars, int coin)
 int key_press(int key, t_mlx *vars)
 {
 	static int	coin;
-	static int	flag;
 
 	if (key == Esc)
 		close_game(vars);
@@ -67,18 +65,5 @@ int key_press(int key, t_mlx *vars)
 		[vars->sprites[P].curr_x] == 'C'
 		&& coin != vars->sprites[C].coin_count)
 		coin++;
-	if (vars->sprites[P].curr_x == 14
-		&& vars->sprites[P].curr_y == 5 && flag == 0)
-	{
-		flag = 1;
-		change_map(vars, "map/map3.ber");
-	}
-	printf("%d %d\n", vars->sprites[P].curr_x, vars->sprites[P].curr_y);
-	if (vars->sprites[P].curr_x == -1
-		&& vars->sprites[P].curr_y == 5 && flag == 1)
-	{
-		flag = 0;
-		change_map(vars, "map/map.ber");
-	}
 	return (0);
 }

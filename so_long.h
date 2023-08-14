@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:02:23 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/09 15:45:47 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/14 16:30:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ typedef struct s_mlx
 }				t_mlx;
 
 void    change_map(t_mlx *vars, char *map_name);
-t_map	read_map(char *map_name);
+void	read_map(t_mlx *vars, char *map_name);
 char	**split_map(t_map map, char *map_name);
 void	init_sprites(t_mlx *vars);
 void	put_map(t_mlx *vars);
 int		key_press(int key, t_mlx *vars);
 int		check_wall_x(t_mlx *vars, int curr_y, int next_x);
 int 	check_wall_y(t_mlx *vars, int curr_x, int next_y);
+void	check_map(t_map map, t_mlx *vars);
 void	close_game(t_mlx *vars);
+void	error(t_mlx *vars);
 
 #endif

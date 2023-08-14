@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:08:30 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/08 16:09:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:50:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,18 @@ void	close_game(t_mlx *vars)
 	free(vars->map.map_lines);
 	free(vars->mlx_ptr);
 	exit(0);
+}
+
+void	error(t_mlx *vars)
+{
+	int	i;
+	
+	i = 0;
+	mlx_destroy_display(vars->mlx_ptr);
+	while (vars->map.map_lines[i])
+		free(vars->map.map_lines[i++]);
+	free(vars->map.map_lines);
+	free(vars->mlx_ptr);
+	ft_printf("Error\nTry another map\n");
+	exit(1);
 }
