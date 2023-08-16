@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:31:47 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/14 16:38:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:50:04 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,57 +18,55 @@ int	ft_strlen_sl(char *str)
 
 	i = 0;
 	while (str[i])
+	{
+		if (str[i] == '\n')
+			break ;
 		i++;
+	}
 	return (i);
 }
 
-void	read_map(t_mlx *vars, char *map_name)
+char	**split_map(char *map_name, int y)
 {
 	int		fd;
-	int		check_x;
+	char	**map_lines;
 	char	*line;
+	int		i;
 
-	vars->map.x = 0;
-	vars->map.y = 0;
 	fd = open(map_name, O_RDONLY);
+	map_lines = (char **)malloc(sizeof(char *) * (y + 1));
+	i = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		vars->map.x = ft_strlen_sl(line) - 1;
-		if (vars->map.y == 0)
-			check_x = vars->map.x;
-		if (check_x != vars->map.x)
-		{
-			mlx_destroy_display(vars->mlx_ptr);
-			free(vars->mlx_ptr);
-			exit(1);
-		}
-		vars->map.y++;
-		free(line);
-	}
-	close(fd);
-}
-
-char	**split_map(t_map map, char *map_name)
-{
-	int	fd;
-	int	i;
-	char **map_lines;
-	
-	i = 0;
-	fd = open(map_name, O_RDONLY);
-	map_lines = (char **)malloc(sizeof(char *) * (map.y + 1));
-	while (i < map.y)
-	{
-		map_lines[i] = (char *)malloc(sizeof(char) * (map.x + 1));
-		read(fd, map_lines[i], map.x + 1);
-		map_lines[i][map.x] = '\0';
+		map_lines[i] = line;
 		i++;
 	}
 	map_lines[i] = NULL;
+	close(fd);
 	return (map_lines);
+}
+
+char	**map_array(t_mlx *vars, char *map_name)
+{
+	int		y;
+	int		fd;
+	char	*line;
+
+	fd = open(map_name, O_RDONLY);
+	line = get_next_line(fd);
+	y = 0;
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		y++;
+	}
+	vars->map.y = y;
+	close(fd);
+	return (split_map(map_name, y));
 }
 
 void	init_sprites(t_mlx *vars)
@@ -114,7 +112,6 @@ void	put_map(t_mlx *vars)
 			{
 				mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr,
 					vars->sprites[C].image, x * 42, y * 42);
-				vars->sprites[C].coin_count++;
 			}
 			else if (vars->map.map_lines[y][x] == 'E')
 				mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr,
