@@ -6,40 +6,40 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:08:30 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/16 15:35:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/28 14:24:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	close_game(t_mlx *vars)
+void	close_game(t_mlx *game)
 {
 	int	i;
 
 	i = 0;
 	while (i < 5)
-		mlx_destroy_image(vars->mlx_ptr, vars->sprites[i++].image);
-	mlx_clear_window(vars->mlx_ptr, vars->win_ptr);
-	mlx_destroy_window(vars->mlx_ptr, vars->win_ptr);
-	mlx_destroy_display(vars->mlx_ptr);
+		mlx_destroy_image(game->mlx_ptr, game->sprites[i++].image);
+	mlx_clear_window(game->mlx_ptr, game->win_ptr);
+	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	mlx_destroy_display(game->mlx_ptr);
 	i = 0;
-	while (vars->map.map_lines[i])
-		free(vars->map.map_lines[i++]);
-	free(vars->map.map_lines);
-	free(vars->mlx_ptr);
+	while (game->map.map_lines[i])
+		free(game->map.map_lines[i++]);
+	free(game->map.map_lines);
+	free(game->mlx_ptr);
 	exit(0);
 }
 
-void	error(t_mlx *vars)
+void	error(t_mlx *game)
 {
 	int	i;
 
 	i = 0;
-	mlx_destroy_display(vars->mlx_ptr);
-	while (vars->map.map_lines[i])
-		free(vars->map.map_lines[i++]);
-	free(vars->map.map_lines);
-	free(vars->mlx_ptr);
+	mlx_destroy_display(game->mlx_ptr);
+	while (game->map.map_lines[i])
+		free(game->map.map_lines[i++]);
+	free(game->map.map_lines);
+	free(game->mlx_ptr);
 	ft_printf("Error\nInvalid Map\n");
 	exit(1);
 }

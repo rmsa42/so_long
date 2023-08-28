@@ -6,16 +6,16 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:02:23 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/16 15:32:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/28 14:34:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "minilibx-linux/mlx.h"
-# include "minilibx-linux/mlx_int.h"
-# include "libft/libft.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
+# include "../libft/libft.h"
 
 typedef struct s_sprite
 {
@@ -52,16 +52,14 @@ typedef struct s_mlx
 	t_map		map;
 }				t_mlx;
 
-void	change_map(t_mlx *vars, char *map_name);
-char	**map_array(t_mlx *vars, char *map_name);
-void	init_sprites(t_mlx *vars);
-void	put_map(t_mlx *vars);
-int		key_press(int key, t_mlx *vars);
-int		check_wall_x(t_mlx *vars, int curr_y, int next_x);
-int		check_wall_y(t_mlx *vars, int curr_x, int next_y);
-void	check_map(t_mlx *vars);
+void	change_map(t_mlx *game, char *map_name);
+char	**map_array(t_mlx *game, char *map_name);
+void	init_sprites(t_mlx *game);
+void	put_map(t_mlx *game);
+int		key_press(int key, t_mlx *game);
+void	check_map(t_mlx *game);
 int		ft_strlen_sl(char *str);
-void	close_game(t_mlx *vars);
-void	error(t_mlx *vars);
+void	close_game(t_mlx *game);
+void	error(t_mlx *game);
 
 #endif
