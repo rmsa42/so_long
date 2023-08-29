@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:31:47 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/28 14:24:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:55:28 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	**split_map(char *map_name, int y)
 
 	fd = open(map_name, O_RDONLY);
 	map_lines = (char **)malloc(sizeof(char *) * (y + 1));
+	if (map_lines == NULL)
+		return (NULL);
 	i = 0;
 	while (1)
 	{
@@ -57,6 +59,8 @@ char	**map_array(t_mlx *game, char *map_name)
 
 	fd = open(map_name, O_RDONLY);
 	line = get_next_line(fd);
+	if (line == NULL)
+		return (NULL);
 	y = 0;
 	while (line)
 	{

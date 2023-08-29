@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:02:23 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/28 14:34:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:01:38 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_mlx
 }				t_mlx;
 
 void	change_map(t_mlx *game, char *map_name);
+void	check_map_pce(t_mlx *game);
 char	**map_array(t_mlx *game, char *map_name);
 void	init_sprites(t_mlx *game);
 void	put_map(t_mlx *game);

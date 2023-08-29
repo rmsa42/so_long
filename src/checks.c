@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:39:31 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/28 14:24:55 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:04:39 by rui              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,58 +30,6 @@ int	my_flood_fill(t_mlx *game, int x, int y, char **cpy_map)
 		my_flood_fill(game, x, y - 1, cpy_map);
 	}
 	return (count);
-}
-
-void	check_map_wall(t_mlx *game)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < game->map.x)
-	{
-		if (game->map.map_lines[0][x] != '1'
-		|| game->map.map_lines[game->map.y - 1][x] != '1')
-			error(game);
-		x++;
-	}
-	y = 0;
-	while (y < game->map.y)
-	{
-		if (game->map.map_lines[y][0] != '1'
-		|| game->map.map_lines[y][game->map.x - 1] != '1')
-			error(game);
-		y++;
-	}
-}
-
-void	check_map_pce(t_mlx *game)
-{
-	int	count;
-	int	y;
-	int	x;
-
-	y = -1;
-	count = 0;
-	while (game->map.map_lines[++y])
-	{
-		x = -1;
-		while (game->map.map_lines[y][++x])
-		{
-			if (game->map.map_lines[y][x] == 'P')
-			{
-				count++;
-				game->sprites[P].curr_x = x;
-				game->sprites[P].curr_y = y;
-			}
-			else if (game->map.map_lines[y][x] == 'C')
-				game->sprites[C].coin_count++;
-			else if (game->map.map_lines[y][x] == 'E')
-				count++;
-		}
-	}
-	if (count != 2 || game->sprites[C].coin_count < 1)
-		error(game);
 }
 
 void	check_map_f(t_mlx *game)
@@ -109,6 +57,29 @@ void	check_map_f(t_mlx *game)
 	free(cpy_map);
 	if (f != game->sprites[C].coin_count + 1)
 		error(game);
+}
+
+void	check_map_wall(t_mlx *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < game->map.x)
+	{
+		if (game->map.map_lines[0][x] != '1'
+		|| game->map.map_lines[game->map.y - 1][x] != '1')
+			error(game);
+		x++;
+	}
+	y = 0;
+	while (y < game->map.y)
+	{
+		if (game->map.map_lines[y][0] != '1'
+		|| game->map.map_lines[y][game->map.x - 1] != '1')
+			error(game);
+		y++;
+	}
 }
 
 void	check_map(t_mlx *game)
