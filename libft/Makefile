@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/18 15:31:41 by rumachad          #+#    #+#              #
-#    Updated: 2023/08/14 16:05:54 by rumachad         ###   ########.fr        #
+#    Updated: 2023/08/30 10:51:48 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ clean:
 		${RM} ${OBJS}
 
 fclean: clean
-		${RM} ${NAME}
+		${RM} libft.a
 
 re:	fclean ${NAME}
 

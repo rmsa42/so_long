@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rui <rui@student.42.fr>                    +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 09:53:34 by rumachad          #+#    #+#              #
-#    Updated: 2023/08/29 15:02:14 by rui              ###   ########.fr        #
+#    Updated: 2023/08/30 12:27:31 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 SRC = src/so_long.c src/rendering.c src/free.c src/checks.c \
-		src/player_movement.c src/rendering2.c src/checks_map.c
+		src/player_movement.c src/rendering2.c src/check_pce.c
 LIBFT_DIR = libft
 LIBFT_PATH = ${LIBFT_DIR}/libft.a
 MLX_DIR = minilibx-linux
@@ -33,13 +33,14 @@ ${NAME}:	${OBJS} ${HEADER}
 
 all:	${NAME}
 
-clean:
+clean:	
 		make clean -C ${LIBFT_DIR}
+		make clean -C ${MLX_DIR}
 		${RM} ${OBJS}
 
 fclean: clean
 		make fclean -C ${LIBFT_DIR}
-		${RM} ${NAME} so_long
+		${RM} ${NAME}
 
 re:	fclean all
 

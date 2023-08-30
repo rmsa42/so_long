@@ -6,21 +6,11 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:37:19 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/14 16:06:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:42:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-size_t	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
 
 char	*ft_strchr_get(const char *str, int c)
 {

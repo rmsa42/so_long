@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:27:08 by rui               #+#    #+#             */
-/*   Updated: 2023/08/28 14:24:38 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:05:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ int	player_move(t_mlx *game, int next_x, int next_y, int coin)
 void	check_key(int key, t_mlx *game, int coin)
 {
 	static int	moves;
-	int			mmove;
+	int			check_move;
 	int			next_y;
 	int			next_x;
 
-	mmove = 0;
+	check_move = 0;
 	next_x = game->sprites[P].curr_x;
 	next_y = game->sprites[P].curr_y;
 	if (key == S)
-		mmove = player_move(game, next_x, next_y + 1, coin);
+		check_move = player_move(game, next_x, next_y + 1, coin);
 	else if (key == A)
-		mmove = player_move(game, next_x - 1, next_y, coin);
+		check_move = player_move(game, next_x - 1, next_y, coin);
 	else if (key == D)
-		mmove = player_move(game, next_x + 1, next_y, coin);
+		check_move = player_move(game, next_x + 1, next_y, coin);
 	else if (key == W)
-		mmove = player_move(game, next_x, next_y - 1, coin);
-	if (mmove != 0)
+		check_move = player_move(game, next_x, next_y - 1, coin);
+	if (check_move != 0)
 		ft_printf("Moves:%d\n", ++moves);
 }
 

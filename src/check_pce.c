@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   checks_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:53:22 by rui               #+#    #+#             */
-/*   Updated: 2023/08/29 19:08:17 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/30 12:25:15 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void    if_pce(t_mlx *game, int *count, int x, int y)
+void	if_pce(t_mlx *game, int *count, int x, int y)
 {
-    if (game->map.map_lines[y][x] == 'P')
+	if (game->map.map_lines[y][x] == 'P')
 	{
 		*count = *count + 1;
 		game->sprites[P].curr_x = x;
@@ -24,10 +24,13 @@ void    if_pce(t_mlx *game, int *count, int x, int y)
 		game->sprites[C].coin_count++;
 	else if (game->map.map_lines[y][x] == 'E')
 		*count = *count + 1;
-    else if (game->map.map_lines[y][x] != '1'
-        && game->map.map_lines[y][x] != '0'
+	else if (game->map.map_lines[y][x] != '1'
+		&& game->map.map_lines[y][x] != '0'
 		&& game->map.map_lines[y][x] != '\n')
-        error(game);
+	{
+		ft_printf("Error\nInvalid Map components\n");
+		error(game);
+	}
 }
 
 void	check_map_pce(t_mlx *game)
@@ -49,5 +52,8 @@ void	check_map_pce(t_mlx *game)
 		y++;
 	}
 	if (count != 2 || game->sprites[C].coin_count < 1)
+	{
+		ft_printf("Error\nInvalid Map components\n");
 		error(game);
+	}
 }

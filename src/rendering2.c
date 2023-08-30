@@ -6,11 +6,30 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 14:22:52 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/28 14:24:18 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:51:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	init_sprites(t_mlx *game)
+{
+	game->sprites[0].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"sprites/path.xpm",
+			&game->sprites[0].curr_x, &game->sprites[0].curr_y);
+	game->sprites[1].image = mlx_xpm_file_to_image(game->mlx_ptr, 
+			"sprites/wall.xpm",
+			&game->sprites[1].curr_x, &game->sprites[1].curr_y);
+	game->sprites[P].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"sprites/player.xpm",
+			&game->sprites[P].curr_x, &game->sprites[P].curr_y);
+	game->sprites[C].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"sprites/coin.xpm",
+			&game->sprites[C].curr_x, &game->sprites[C].curr_y);
+	game->sprites[E].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"sprites/exit.xpm",
+			&game->sprites[E].curr_x, &game->sprites[E].curr_y);
+}
 
 void	put_map2(t_mlx *game, int x, int y)
 {

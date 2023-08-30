@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:39:31 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/29 15:04:39 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/30 11:51:08 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,11 @@ void	check_map_f(t_mlx *game)
 	int		f;
 	int		y;
 
-	y = 0;
+	y = -1;
 	f = 0;
 	cpy_map = (char **)calloc(sizeof(char *), (game->map.y + 1));
-	while (y < game->map.y)
-	{
+	while (++y < game->map.y)
 		cpy_map[y] = ft_strdup(game->map.map_lines[y]);
-		y++;
-	}
 	f = my_flood_fill(game, game->sprites[P].curr_x,
 			game->sprites[P].curr_y, cpy_map);
 	y = 0;
@@ -56,7 +53,10 @@ void	check_map_f(t_mlx *game)
 	}
 	free(cpy_map);
 	if (f != game->sprites[C].coin_count + 1)
+	{
+		ft_printf("Error\nMap can't be completed\n");
 		error(game);
+	}
 }
 
 void	check_map_wall(t_mlx *game)
@@ -69,7 +69,10 @@ void	check_map_wall(t_mlx *game)
 	{
 		if (game->map.map_lines[0][x] != '1'
 		|| game->map.map_lines[game->map.y - 1][x] != '1')
+		{
+			ft_printf("Error\nMap Walls are incorrect\n");
 			error(game);
+		}
 		x++;
 	}
 	y = 0;
@@ -77,7 +80,10 @@ void	check_map_wall(t_mlx *game)
 	{
 		if (game->map.map_lines[y][0] != '1'
 		|| game->map.map_lines[y][game->map.x - 1] != '1')
+		{
+			ft_printf("Error\nMap Walls are incorrect\n");
 			error(game);
+		}
 		y++;
 	}
 }
@@ -92,7 +98,10 @@ void	check_map(t_mlx *game)
 	while (game->map.map_lines[y])
 	{
 		if (check_x != ft_strlen_sl(game->map.map_lines[y]))
+		{
+			ft_printf("Error\nMap is not a rectangle\n");
 			error(game);
+		}
 		y++;
 	}
 	game->map.x = check_x;

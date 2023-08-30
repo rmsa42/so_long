@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rui <rui@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:31:47 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/29 18:55:28 by rui              ###   ########.fr       */
+/*   Updated: 2023/08/30 13:50:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	**map_array(t_mlx *game, char *map_name)
 	int		fd;
 	char	*line;
 
+	if (!ft_strnstr(map_name, ".ber", ft_strlen(map_name)))
+		return (NULL);
 	fd = open(map_name, O_RDONLY);
 	line = get_next_line(fd);
 	if (line == NULL)
@@ -71,23 +73,4 @@ char	**map_array(t_mlx *game, char *map_name)
 	game->map.y = y;
 	close(fd);
 	return (split_map(map_name, y));
-}
-
-void	init_sprites(t_mlx *game)
-{
-	game->sprites[0].image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"sprites/path.xpm",
-			&game->sprites[0].curr_x, &game->sprites[0].curr_y);
-	game->sprites[1].image = mlx_xpm_file_to_image(game->mlx_ptr, 
-			"sprites/wall.xpm",
-			&game->sprites[1].curr_x, &game->sprites[1].curr_y);
-	game->sprites[P].image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"sprites/player.xpm",
-			&game->sprites[P].curr_x, &game->sprites[P].curr_y);
-	game->sprites[C].image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"sprites/coin.xpm",
-			&game->sprites[C].curr_x, &game->sprites[C].curr_y);
-	game->sprites[E].image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"sprites/exit.xpm",
-			&game->sprites[E].curr_x, &game->sprites[E].curr_y);
 }

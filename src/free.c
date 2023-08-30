@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:08:30 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/28 14:24:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:24:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ void	error(t_mlx *game)
 		free(game->map.map_lines[i++]);
 	free(game->map.map_lines);
 	free(game->mlx_ptr);
-	ft_printf("Error\nInvalid Map\n");
 	exit(1);
 }
