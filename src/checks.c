@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:39:31 by rumachad          #+#    #+#             */
-/*   Updated: 2023/08/30 11:51:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/09/04 11:44:21 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ void	check_map(t_mlx *game)
 		y++;
 	}
 	game->map.x = check_x;
+	if (game->map.map_lines[--y][check_x] == '\n')
+	{
+		ft_printf("Error\nNew Line at the end of the Map\n");
+		error(game);
+	}
 	check_map_wall(game);
 	check_map_pce(game);
 	check_map_f(game);
