@@ -35,6 +35,7 @@ This project is a very small 2D game. Its purpose is to make you work with textu
   - `C` for a collectible
   - `E` for a map exit
   - `P` for the player’s starting position
+
 Here is a valid map:
 ```bash
 1111111
